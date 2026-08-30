@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <div class="topbar">
+        <h1>🎓 Student Dashboard</h1>
+        <form th:action="@{/logout}" method="post"><button>Logout</button></form>
+    </div>
+
+    <div class="welcome">
+        <h2 th:text="'Welcome, ' + ${user.name}"></h2>
+        <p>Your attendance is securely stored in the cloud database.</p>
+    </div>
+
+    <div class="stat">
+        <h2 th:text="${attendanceCount}">0</h2>
+        <p>Total Days Present</p>
+    </div>
+
+    <h2>Attendance History</h2>
+    <table>
+        <tr><th>Date</th><th>Marked At</th><th>Status</th></tr>
+        <tr th:each="a : ${history}">
+            <td th:text="${a.attendanceDate}"></td>
+            <td th:text="${a.markedAt}"></td>
+            <td>Present</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

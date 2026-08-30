@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>QR Attendance</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="card qr-card">
+    <h1>QR Attendance Session</h1>
+    <p>Students must login and scan/open the QR link.</p>
+    <img th:src="'data:image/png;base64,' + ${qrImage}" alt="Attendance QR Code">
+    <p><b>Valid until:</b> <span th:text="${expiresAt}"></span></p>
+    <p class="small">For production cloud deployment, replace the relative URL with your deployed domain URL.</p>
+    <a th:href="@{/admin/dashboard}">← Back to Dashboard</a>
+</div>
+</body>
+</html>

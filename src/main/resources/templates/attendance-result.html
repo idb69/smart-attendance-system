@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Attendance Result</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="card">
+    <h1>Attendance Status</h1>
+    <div class="alert success" th:text="${message}"></div>
+    <p><a th:href="@{/student/dashboard}">Go to Dashboard</a></p>
+</div>
+</body>
+</html>

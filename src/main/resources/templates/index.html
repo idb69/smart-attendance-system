@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Online Examination System</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f4f6f9;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: linear-gradient(90deg, #0d47a1, #2563eb);
+            color: white;
+            padding: 25px 8%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        .admin-link {
+            background: white;
+            color: #1565c0;
+
+            padding: 12px 20px;
+
+            text-decoration: none;
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .admin-link:hover {
+            background: #e3f2fd;
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           HERO SECTION
+        ========================= */
+
+        .hero {
+            min-height: 80vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+
+            width: 100%;
+            max-width: 550px;
+
+            padding: 45px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .icon {
+            font-size: 65px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            color: #1f2937;
+
+            margin-bottom: 15px;
+
+            font-size: 30px;
+        }
+
+        .card p {
+            color: #6b7280;
+
+            font-size: 17px;
+
+            line-height: 1.6;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            text-align: left;
+        }
+
+        label {
+            display: block;
+
+            font-weight: bold;
+
+            color: #374151;
+
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 15px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 8px;
+
+            font-size: 17px;
+
+            outline: none;
+
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(37, 99, 235, 0.15);
+        }
+
+
+        /* =========================
+           START BUTTON
+        ========================= */
+
+        .start-btn {
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .start-btn:hover {
+            background: #1d4ed8;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features {
+            margin-top: 30px;
+
+            display: flex;
+
+            justify-content: space-around;
+
+            color: #4b5563;
+
+            font-size: 14px;
+
+            border-top: 1px solid #e5e7eb;
+
+            padding-top: 20px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            padding: 20px;
+
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           MOBILE RESPONSIVE
+        ========================= */
+
+        @media(max-width: 600px) {
+
+            header {
+                padding: 20px;
+
+                flex-direction: column;
+
+                gap: 15px;
+
+                text-align: center;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            .hero {
+                padding: 20px;
+
+                min-height: auto;
+            }
+
+            .card {
+                padding: 30px 20px;
+            }
+
+            .card h2 {
+                font-size: 25px;
+            }
+
+            .features {
+                flex-direction: column;
+
+                gap: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <h1>🎓 Online Examination System</h1>
+
+    <a href="/admin"
+       class="admin-link">
+
+        ⚙️ Admin Panel
+
+    </a>
+
+</header>
+
+
+
+<!-- =========================
+     HERO SECTION
+========================= -->
+
+<section class="hero">
+
+    <div class="card">
+
+
+        <!-- ICON -->
+
+        <div class="icon">
+            🎓
+        </div>
+
+
+        <!-- TITLE -->
+
+        <h2>Welcome to Online Exam</h2>
+
+
+        <!-- DESCRIPTION -->
+
+        <p>
+
+            Enter your name and start your examination.
+
+            Answer all questions and check your result instantly.
+
+        </p>
+
+
+
+        <!-- =========================
+             STUDENT FORM
+        ========================= -->
+
+        <form action="/exam"
+              method="get">
+
+
+            <div class="form-group">
+
+
+                <label for="studentName">
+
+                    👤 Student Name
+
+                </label>
+
+
+                <input
+
+                    type="text"
+
+                    id="studentName"
+
+                    name="studentName"
+
+                    placeholder="Enter your full name"
+
+                    required
+
+                    autocomplete="name"
+
+                >
+
+
+            </div>
+
+
+
+            <!-- START EXAM BUTTON -->
+
+            <button
+
+                type="submit"
+
+                class="start-btn">
+
+                🚀 Start Exam
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- FEATURES -->
+
+        <div class="features">
+
+            <span>
+                📚 Multiple Questions
+            </span>
+
+            <span>
+                ⚡ Instant Result
+            </span>
+
+            <span>
+                📊 Score Analysis
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    © 2026 Online Examination System |
+    Built with Spring Boot
+
+</footer>
+
+
+</body>
+
+</html>

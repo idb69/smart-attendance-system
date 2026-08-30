@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - Online Exam System</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+        }
+
+        /* HEADER */
+
+        header {
+            background: linear-gradient(90deg, #0d47a1, #2563eb);
+            color: white;
+            padding: 25px 40px;
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 16px;
+        }
+
+        .results-link {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 12px 20px;
+            background: #16a34a;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .results-link:hover {
+            background: #15803d;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 95%;
+            max-width: 1400px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            margin-bottom: 25px;
+            color: #1f2937;
+        }
+
+        /* FORM */
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #374151;
+        }
+
+        textarea,
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            border: none;
+            border-radius: 7px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-btn {
+            margin-top: 25px;
+            padding: 13px 25px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .update-btn {
+            margin-top: 25px;
+            padding: 13px 25px;
+            background: #16a34a;
+            color: white;
+            font-size: 16px;
+        }
+
+        .cancel-btn {
+            margin-top: 25px;
+            padding: 13px 25px;
+            background: #6b7280;
+            color: white;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        /* TABLE */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background: #2563eb;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .edit-btn {
+            background: #f59e0b;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+            color: white;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #777;
+            padding: 20px;
+        }
+
+        /* MESSAGE */
+
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+        @media(max-width: 768px) {
+
+            header {
+                padding: 20px;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <h1>🎓 Online Examination System</h1>
+
+    <p>Admin Dashboard</p>
+
+    <!-- STUDENT RESULTS BUTTON -->
+
+    <a href="/admin/results"
+       class="results-link">
+
+        📊 View Student Results
+
+    </a>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- ADD / EDIT QUESTION -->
+
+    <div class="card">
+
+        <h2 id="formTitle">➕ Add New Question</h2>
+
+
+        <form id="questionForm">
+
+
+            <label>Question</label>
+
+            <textarea
+                id="questionText"
+                placeholder="Enter your question"
+                required></textarea>
+
+
+            <label>Option A</label>
+
+            <input
+                type="text"
+                id="optionA"
+                placeholder="Enter Option A"
+                required>
+
+
+            <label>Option B</label>
+
+            <input
+                type="text"
+                id="optionB"
+                placeholder="Enter Option B"
+                required>
+
+
+            <label>Option C</label>
+
+            <input
+                type="text"
+                id="optionC"
+                placeholder="Enter Option C"
+                required>
+
+
+            <label>Option D</label>
+
+            <input
+                type="text"
+                id="optionD"
+                placeholder="Enter Option D"
+                required>
+
+
+            <label>Correct Answer</label>
+
+            <select id="correctAnswer">
+
+                <option value="A">Option A</option>
+
+                <option value="B">Option B</option>
+
+                <option value="C">Option C</option>
+
+                <option value="D">Option D</option>
+
+            </select>
+
+
+            <button
+                type="submit"
+                class="add-btn"
+                id="submitBtn">
+
+                ➕ Add Question
+
+            </button>
+
+
+            <button
+                type="button"
+                class="cancel-btn"
+                id="cancelBtn"
+                style="display: none;"
+                onclick="cancelEdit()">
+
+                Cancel Edit
+
+            </button>
+
+
+        </form>
+
+
+        <div id="message" class="message"></div>
+
+    </div>
+
+
+    <!-- QUESTION BANK -->
+
+    <div class="card">
+
+        <h2>📚 Question Bank</h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Question</th>
+                        <th>Option A</th>
+                        <th>Option B</th>
+                        <th>Option C</th>
+                        <th>Option D</th>
+                        <th>Correct Answer</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="questionList"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+    const API_URL = "/api/questions";
+
+    let editingQuestionId = null;
+
+
+    // ============================
+    // LOAD QUESTIONS
+    // ============================
+
+    function loadQuestions() {
+
+        fetch(API_URL)
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error("Failed to load questions");
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(questions => {
+
+                const questionList =
+                    document.getElementById("questionList");
+
+                questionList.innerHTML = "";
+
+
+                if (questions.length === 0) {
+
+                    questionList.innerHTML = `
+
+                        <tr>
+
+                            <td colspan="8"
+                                class="empty-message">
+
+                                No questions available
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                questions.forEach(question => {
+
+                    const row =
+                        document.createElement("tr");
+
+
+                    row.innerHTML = `
+
+                        <td>${question.id}</td>
+
+                        <td>${question.questionText}</td>
+
+                        <td>${question.optiona}</td>
+
+                        <td>${question.optionb}</td>
+
+                        <td>${question.optionc}</td>
+
+                        <td>${question.optiond}</td>
+
+                        <td>
+                            <b>${question.correctAnswer}</b>
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="edit-btn"
+                                onclick="editQuestion(${question.id})">
+
+                                ✏️ Edit
+
+                            </button>
+
+                            <br>
+
+                            <button
+                                class="delete-btn"
+                                onclick="deleteQuestion(${question.id})">
+
+                                🗑 Delete
+
+                            </button>
+
+                        </td>
+
+                    `;
+
+
+                    questionList.appendChild(row);
+
+                });
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                showMessage(
+                    "❌ Error loading questions!",
+                    "error"
+                );
+
+            });
+
+    }
+
+
+    // ============================
+    // ADD / UPDATE QUESTION
+    // ============================
+
+    document
+        .getElementById("questionForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const question = {
+
+                questionText:
+                    document
+                        .getElementById("questionText")
+                        .value
+                        .trim(),
+
+                optiona:
+                    document
+                        .getElementById("optionA")
+                        .value
+                        .trim(),
+
+                optionb:
+                    document
+                        .getElementById("optionB")
+                        .value
+                        .trim(),
+
+                optionc:
+                    document
+                        .getElementById("optionC")
+                        .value
+                        .trim(),
+
+                optiond:
+                    document
+                        .getElementById("optionD")
+                        .value
+                        .trim(),
+
+                correctAnswer:
+                    document
+                        .getElementById("correctAnswer")
+                        .value
+
+            };
+
+
+            let url = API_URL;
+
+            let method = "POST";
+
+
+            if (editingQuestionId !== null) {
+
+                url =
+                    API_URL + "/" + editingQuestionId;
+
+                method = "PUT";
+
+            }
+
+
+            fetch(url, {
+
+                method: method,
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(question)
+
+            })
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Failed to save question"
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(() => {
+
+                if (editingQuestionId !== null) {
+
+                    showMessage(
+                        "✅ Question updated successfully!",
+                        "success"
+                    );
+
+                } else {
+
+                    showMessage(
+                        "✅ Question added successfully!",
+                        "success"
+                    );
+
+                }
+
+
+                cancelEdit();
+
+                loadQuestions();
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                showMessage(
+                    "❌ Error saving question!",
+                    "error"
+                );
+
+            });
+
+        });
+
+
+    // ============================
+    // EDIT QUESTION
+    // ============================
+
+    function editQuestion(id) {
+
+        fetch(API_URL + "/" + id)
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Question not found"
+                    );
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(question => {
+
+                editingQuestionId = question.id;
+
+
+                document
+                    .getElementById("questionText")
+                    .value = question.questionText;
+
+
+                document
+                    .getElementById("optionA")
+                    .value = question.optiona;
+
+
+                document
+                    .getElementById("optionB")
+                    .value = question.optionb;
+
+
+                document
+                    .getElementById("optionC")
+                    .value = question.optionc;
+
+
+                document
+                    .getElementById("optionD")
+                    .value = question.optiond;
+
+
+                document
+                    .getElementById("correctAnswer")
+                    .value = question.correctAnswer;
+
+
+                document
+                    .getElementById("formTitle")
+                    .innerHTML =
+                    "✏️ Edit Question #" + question.id;
+
+
+                const submitBtn =
+                    document.getElementById("submitBtn");
+
+
+                submitBtn.innerHTML =
+                    "💾 Update Question";
+
+
+                submitBtn.className =
+                    "update-btn";
+
+
+                document
+                    .getElementById("cancelBtn")
+                    .style.display = "inline-block";
+
+
+                window.scrollTo({
+
+                    top: 0,
+
+                    behavior: "smooth"
+
+                });
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                showMessage(
+                    "❌ Error loading question!",
+                    "error"
+                );
+
+            });
+
+    }
+
+
+    // ============================
+    // CANCEL EDIT
+    // ============================
+
+    function cancelEdit() {
+
+        editingQuestionId = null;
+
+
+        document
+            .getElementById("questionForm")
+            .reset();
+
+
+        document
+            .getElementById("formTitle")
+            .innerHTML =
+            "➕ Add New Question";
+
+
+        const submitBtn =
+            document.getElementById("submitBtn");
+
+
+        submitBtn.innerHTML =
+            "➕ Add Question";
+
+
+        submitBtn.className =
+            "add-btn";
+
+
+        document
+            .getElementById("cancelBtn")
+            .style.display = "none";
+
+    }
+
+
+    // ============================
+    // DELETE QUESTION
+    // ============================
+
+    function deleteQuestion(id) {
+
+        const confirmation =
+            confirm(
+                "Are you sure you want to delete this question?"
+            );
+
+
+        if (!confirmation) {
+
+            return;
+
+        }
+
+
+        fetch(API_URL + "/" + id, {
+
+            method: "DELETE"
+
+        })
+
+        .then(response => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to delete question"
+                );
+
+            }
+
+            return response.text();
+
+        })
+
+        .then(() => {
+
+            showMessage(
+                "✅ Question deleted successfully!",
+                "success"
+            );
+
+
+            loadQuestions();
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+
+
+            showMessage(
+                "❌ Error deleting question!",
+                "error"
+            );
+
+        });
+
+    }
+
+
+    // ============================
+    // SHOW MESSAGE
+    // ============================
+
+    function showMessage(text, type) {
+
+        const message =
+            document.getElementById("message");
+
+
+        message.innerHTML = text;
+
+
+        message.className =
+            "message " + type;
+
+
+        setTimeout(() => {
+
+            message.innerHTML = "";
+
+        }, 3000);
+
+    }
+
+
+    // ============================
+    // PAGE LOAD
+    // ============================
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            loadQuestions();
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

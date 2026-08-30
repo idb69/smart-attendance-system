@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Exam Result - Online Examination System</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            background: linear-gradient(90deg, #0d47a1, #1976d2);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .header p {
+            margin-top: 10px;
+            font-size: 17px;
+        }
+
+        /* ================= MAIN CONTAINER ================= */
+
+        .result-container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        /* ================= RESULT SECTION ================= */
+
+        .success-message {
+            text-align: center;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .success-message h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .student-name {
+            font-size: 19px;
+            margin: 15px 0;
+            color: #374151;
+        }
+
+        .score-title {
+            font-size: 22px;
+            margin-top: 20px;
+        }
+
+        .score {
+            font-size: 60px;
+            font-weight: bold;
+            color: #1565c0;
+            margin: 20px 0;
+        }
+
+        .details {
+            font-size: 18px;
+            color: #4b5563;
+        }
+
+        /* ================= PERCENTAGE ================= */
+
+        .percentage {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #374151;
+        }
+
+        /* ================= STATUS ================= */
+
+        .status {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .pass {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .fail {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        /* ================= ANSWER DETAILS ================= */
+
+        .answer-title {
+            margin-top: 35px;
+            margin-bottom: 25px;
+            color: #1f2937;
+        }
+
+        .answer-card {
+            background: #f8fafc;
+            border-left: 5px solid #1565c0;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .question {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .answer-card p {
+            font-size: 16px;
+            margin: 12px 0;
+        }
+
+        .correct {
+            color: #15803d;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .wrong {
+            color: #dc2626;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .btn-container {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background: #1565c0;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 17px;
+            margin: 5px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #0d47a1;
+        }
+
+        .admin-btn {
+            background: #374151;
+        }
+
+        .admin-btn:hover {
+            background: #111827;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 600px) {
+
+            .result-container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .score {
+                font-size: 48px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<div class="header">
+
+    <h1>🎓 Online Examination System</h1>
+
+    <p>Examination Result</p>
+
+</div>
+
+
+<!-- ================= RESULT CONTAINER ================= -->
+
+<div class="result-container">
+
+
+    <!-- ================= SUCCESS MESSAGE ================= -->
+
+    <div class="success-message">
+
+        <h2>🎉 Exam Submitted Successfully!</h2>
+
+
+        <!-- STUDENT NAME -->
+
+        <p class="student-name">
+
+            👤 Student:
+
+            <b th:text="${studentName}">
+                Student Name
+            </b>
+
+        </p>
+
+
+        <!-- SCORE -->
+
+        <p class="score-title">
+            Your Score
+        </p>
+
+
+        <div class="score">
+
+            <span th:text="${score}">
+                0
+            </span>
+
+            /
+
+            <span th:text="${totalQuestions}">
+                0
+            </span>
+
+        </div>
+
+
+        <!-- DETAILS -->
+
+        <p class="details">
+
+            You answered
+
+            <b th:text="${score}">
+                0
+            </b>
+
+            out of
+
+            <b th:text="${totalQuestions}">
+                0
+            </b>
+
+            questions correctly.
+
+        </p>
+
+
+        <!-- PERCENTAGE -->
+
+        <div class="percentage">
+
+            📊 Percentage:
+
+            <b th:text="${#numbers.formatDecimal(percentage, 1, 2)} + '%'">
+                0.00%
+            </b>
+
+        </div>
+
+
+        <!-- PASS / FAIL -->
+
+        <div class="status"
+             th:classappend="${resultStatus == 'PASS'} ? ' pass' : ' fail'">
+
+            <span th:text="${resultStatus}">
+                PASS
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ================= ANSWER DETAILS ================= -->
+
+    <h2 class="answer-title">
+        📋 Answer Details
+    </h2>
+
+
+    <!-- LOOP THROUGH ANSWERS -->
+
+    <div class="answer-card"
+         th:each="detail, stat : ${answerDetails}">
+
+
+        <!-- QUESTION -->
+
+        <div class="question">
+
+            Question
+
+            <span th:text="${stat.count}">
+                1
+            </span>:
+
+            <span th:text="${detail.question.questionText}">
+                Question Text
+            </span>
+
+        </div>
+
+
+        <!-- STUDENT ANSWER -->
+
+        <p>
+
+            <b>Student Answer:</b>
+
+            <span th:text="${detail.studentAnswer}">
+                Not Answered
+            </span>
+
+        </p>
+
+
+        <!-- CORRECT ANSWER -->
+
+        <p>
+
+            <b>Correct Answer:</b>
+
+            <span th:text="${detail.correctAnswer}">
+                A
+            </span>
+
+        </p>
+
+
+        <!-- CORRECT -->
+
+        <p th:if="${detail.isCorrect}"
+           class="correct">
+
+            ✅ Correct Answer
+
+        </p>
+
+
+        <!-- WRONG -->
+
+        <p th:unless="${detail.isCorrect}"
+           class="wrong">
+
+            ❌ Wrong Answer
+
+        </p>
+
+
+    </div>
+
+
+    <!-- ================= BUTTONS ================= -->
+
+    <div class="btn-container">
+
+
+        <!-- HOME PAGE -->
+
+        <a href="/"
+           class="btn">
+
+            🔄 Take Exam Again
+
+        </a>
+
+
+        <!-- ADMIN -->
+
+        <a href="/admin"
+           class="btn admin-btn">
+
+            ⚙️ Admin Dashboard
+
+        </a>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <div class="topbar">
+        <h1>👨‍💼 Admin Dashboard</h1>
+        <form th:action="@{/logout}" method="post"><button>Logout</button></form>
+    </div>
+
+    <div class="stats">
+        <div class="stat"><h2 th:text="${studentCount}">0</h2><p>Students</p></div>
+        <div class="stat"><h2 th:text="${attendanceCount}">0</h2><p>Total Attendance</p></div>
+    </div>
+
+    <a class="big-button" th:href="@{/admin/generate-qr}">Generate Today's QR Attendance</a>
+
+    <h2>Attendance Report</h2>
+    <table>
+        <tr><th>Student</th><th>Email</th><th>Date</th><th>Marked At</th></tr>
+        <tr th:each="a : ${attendanceList}">
+            <td th:text="${a.student.name}"></td>
+            <td th:text="${a.student.email}"></td>
+            <td th:text="${a.attendanceDate}"></td>
+            <td th:text="${a.markedAt}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

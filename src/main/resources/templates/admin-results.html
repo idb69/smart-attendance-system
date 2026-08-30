@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Results - Online Examination System</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* ================= BODY ================= */
+
+        body {
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: linear-gradient(
+                    90deg,
+                    #0d47a1,
+                    #2563eb
+            );
+
+            color: white;
+
+            padding: 25px 40px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 15px;
+        }
+
+
+        header h1 {
+            font-size: 28px;
+        }
+
+
+        header p {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+
+        /* ================= BACK BUTTON ================= */
+
+        .back-btn {
+            background: white;
+
+            color: #1565c0;
+
+            text-decoration: none;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .back-btn:hover {
+            background: #e5e7eb;
+        }
+
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 95%;
+
+            max-width: 1300px;
+
+            margin: 40px auto;
+        }
+
+
+        /* ================= CARD ================= */
+
+        .card {
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                    0 5px 20px
+                    rgba(0, 0, 0, 0.1);
+        }
+
+
+        .card h2 {
+            margin-bottom: 25px;
+
+            color: #1f2937;
+        }
+
+
+        /* ================= TABLE ================= */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 850px;
+        }
+
+
+        th {
+            background: #2563eb;
+
+            color: white;
+
+            padding: 15px;
+
+            text-align: left;
+        }
+
+
+        td {
+            padding: 15px;
+
+            border-bottom:
+                    1px solid #e5e7eb;
+        }
+
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+
+        /* ================= STATUS ================= */
+
+        .pass {
+            background: #dcfce7;
+
+            color: #15803d;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+            display: inline-block;
+        }
+
+
+        .fail {
+            background: #fee2e2;
+
+            color: #dc2626;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+            display: inline-block;
+        }
+
+
+        /* ================= SCORE ================= */
+
+        .score {
+            font-weight: bold;
+
+            color: #1565c0;
+
+            font-size: 17px;
+        }
+
+
+        /* ================= EMPTY MESSAGE ================= */
+
+        .empty-message {
+            text-align: center;
+
+            padding: 40px;
+
+            color: #6b7280;
+
+            font-size: 18px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 20px;
+
+                display: block;
+            }
+
+
+            .back-btn {
+                display: inline-block;
+
+                margin-top: 15px;
+            }
+
+
+            .container {
+                width: 95%;
+
+                margin: 25px auto;
+            }
+
+
+            .card {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div>
+
+        <h1>📊 Student Results</h1>
+
+        <p>Online Examination System - Admin Panel</p>
+
+    </div>
+
+
+    <a href="/admin"
+       class="back-btn">
+
+        ← Back to Admin
+
+    </a>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+
+    <div class="card">
+
+
+        <h2>👨‍🎓 All Student Examination Results</h2>
+
+
+        <!-- ================= NO RESULTS ================= -->
+
+        <div th:if="${results == null or #lists.isEmpty(results)}"
+             class="empty-message">
+
+            📭 No student results available yet.
+
+        </div>
+
+
+        <!-- ================= RESULTS TABLE ================= -->
+
+        <div class="table-container"
+             th:if="${results != null and !#lists.isEmpty(results)}">
+
+
+            <table>
+
+
+                <!-- TABLE HEADER -->
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Student Name</th>
+
+                        <th>Score</th>
+
+                        <th>Total Questions</th>
+
+                        <th>Percentage</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <!-- TABLE BODY -->
+
+                <tbody>
+
+
+                    <tr th:each="result : ${results}">
+
+
+                        <!-- ID -->
+
+                        <td th:text="${result.id}">
+                            1
+                        </td>
+
+
+                        <!-- STUDENT NAME -->
+
+                        <td>
+
+                            👤
+
+                            <b th:text="${result.studentName}">
+                                Student Name
+                            </b>
+
+                        </td>
+
+
+                        <!-- SCORE -->
+
+                        <td class="score"
+                            th:text="${result.score}">
+
+                            0
+
+                        </td>
+
+
+                        <!-- TOTAL QUESTIONS -->
+
+                        <td th:text="${result.totalQuestions}">
+
+                            0
+
+                        </td>
+
+
+                        <!-- PERCENTAGE -->
+
+                        <td>
+
+                            <b>
+
+                                <span th:text="${#numbers.formatDecimal(result.percentage, 1, 2)}">
+
+                                    0.00
+
+                                </span>%
+
+                            </b>
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+
+                            <!-- PASS -->
+
+                            <span th:if="${result.resultStatus == 'PASS'}"
+                                  class="pass">
+
+                                ✅ PASS
+
+                            </span>
+
+
+                            <!-- FAIL -->
+
+                            <span th:if="${result.resultStatus == 'FAIL'}"
+                                  class="fail">
+
+                                ❌ FAIL
+
+                            </span>
+
+
+                        </td>
+
+
+                    </tr>
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Online Examination System</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: linear-gradient(90deg, #0d47a1, #1976d2);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0 0 8px 0;
+        }
+
+        .header p {
+            margin: 8px 0;
+        }
+
+        /* CONTAINER */
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        /* STUDENT INFO */
+
+        .student-info {
+            background: white;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .student-info h2 {
+            margin: 0;
+            color: #0d47a1;
+        }
+
+        .student-name {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #374151;
+        }
+
+        /* QUESTION CARD */
+
+        .question-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .question {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        /* OPTIONS */
+
+        .option {
+            display: block;
+            padding: 12px;
+            margin: 10px 0;
+            background: #f1f3f6;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            background: #dbeafe;
+        }
+
+        .option input {
+            margin-right: 10px;
+        }
+
+        /* SUBMIT */
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #1565c0;
+            color: white;
+            border: none;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 40px;
+        }
+
+        .submit-btn:hover {
+            background: #0d47a1;
+        }
+
+        /* NO QUESTION */
+
+        .no-question {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+
+            .container {
+                width: 92%;
+            }
+
+            .question {
+                font-size: 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <h1>🎓 Online Examination System</h1>
+
+    <p>Student Examination Portal</p>
+
+    <p>
+        👤 Student:
+        <b th:text="${studentName}">
+            Student Name
+        </b>
+    </p>
+
+</div>
+
+
+<div class="container">
+
+    <!-- NO QUESTIONS -->
+
+    <div class="no-question"
+         th:if="${#lists.isEmpty(questions)}">
+
+        <h2>⚠️ No Questions Available</h2>
+
+        <p>Please contact the administrator.</p>
+
+    </div>
+
+
+    <!-- EXAM FORM -->
+
+    <form th:if="${!#lists.isEmpty(questions)}"
+          th:action="@{/submit-exam}"
+          method="post">
+
+
+        <!-- STUDENT NAME -->
+
+        <input type="hidden"
+               name="studentName"
+               th:value="${studentName}">
+
+
+        <!-- STUDENT INFORMATION -->
+
+        <div class="student-info">
+
+            <h2>👨‍🎓 Student Information</h2>
+
+            <p class="student-name">
+
+                Name:
+
+                <b th:text="${studentName}">
+                    Student Name
+                </b>
+
+            </p>
+
+        </div>
+
+
+        <!-- QUESTIONS -->
+
+        <div class="question-card"
+             th:each="question, stat : ${questions}">
+
+
+            <!-- QUESTION -->
+
+            <div class="question">
+
+                Question
+                <span th:text="${stat.count}">1</span>:
+
+                <span th:text="${question.questionText}">
+                    Question Text
+                </span>
+
+            </div>
+
+
+            <!-- OPTION A -->
+
+            <label class="option">
+
+                <input type="radio"
+                       th:name="'question_' + ${question.id}"
+                       value="A"
+                       required>
+
+                <b>A.</b>
+
+                <span th:text="${question.optiona}">
+                    Option A
+                </span>
+
+            </label>
+
+
+            <!-- OPTION B -->
+
+            <label class="option">
+
+                <input type="radio"
+                       th:name="'question_' + ${question.id}"
+                       value="B">
+
+                <b>B.</b>
+
+                <span th:text="${question.optionb}">
+                    Option B
+                </span>
+
+            </label>
+
+
+            <!-- OPTION C -->
+
+            <label class="option">
+
+                <input type="radio"
+                       th:name="'question_' + ${question.id}"
+                       value="C">
+
+                <b>C.</b>
+
+                <span th:text="${question.optionc}">
+                    Option C
+                </span>
+
+            </label>
+
+
+            <!-- OPTION D -->
+
+            <label class="option">
+
+                <input type="radio"
+                       th:name="'question_' + ${question.id}"
+                       value="D">
+
+                <b>D.</b>
+
+                <span th:text="${question.optiond}">
+                    Option D
+                </span>
+
+            </label>
+
+
+        </div>
+
+
+        <!-- SUBMIT BUTTON -->
+
+        <button type="submit"
+                class="submit-btn">
+
+            ✅ Submit Exam
+
+        </button>
+
+
+    </form>
+
+
+</div>
+
+</body>
+
+</html>
