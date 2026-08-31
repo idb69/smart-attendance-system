@@ -84,7 +84,7 @@ Create MySQL database `online_exam_db`, then configure:
 ```bash
 ./mvnw spring-boot:run
 ```
-Open `http://localhost:8080/login`.
+Open (https://smart-attendance-system-wc1z.onrender.com/login)
 
 ## Cloud deployment
 Deploy the Docker image or Spring Boot application to Render, Railway, AWS Elastic Beanstalk, EC2, or another cloud platform. Set `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, and optionally `PORT` as environment variables.
