@@ -1,15 +1,13 @@
 package com.attendance.smartattendance;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootApplication
-public class SmartAttendanceSystemApplication {
+@SpringBootTest
+class SmartAttendanceSystemApplicationTests {
 
-    public static void main(String[] args) {
-        SpringApplication.run(
-            SmartAttendanceSystemApplication.class,
-            args
-        );
+    @Test
+    void contextLoads() {
     }
+
 }
