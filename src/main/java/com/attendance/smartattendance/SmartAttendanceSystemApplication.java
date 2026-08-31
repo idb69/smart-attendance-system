@@ -18,11 +18,20 @@ public class SmartAttendanceSystemApplication {
     }
 
     @Bean
-    CommandLineRunner createDefaultAdmin(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    CommandLineRunner createDefaultAdmin(
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder) {
+
         return args -> {
             if (userRepository.findByEmail("admin@attendance.com").isEmpty()) {
-                User admin = new User("System Admin", "admin@attendance.com",
-                        passwordEncoder.encode("admin123"), Role.ADMIN);
+
+                User admin = new User(
+                        "System Admin",
+                        "admin@attendance.com",
+                        passwordEncoder.encode("admin123"),
+                        Role.ADMIN
+                );
+
                 userRepository.save(admin);
             }
         };
